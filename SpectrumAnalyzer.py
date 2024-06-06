@@ -110,52 +110,52 @@ convRhythm = normalizeList(convRhythm, 3, True)
 
 print(convRhythm)
 
-# fileName = "DeepBellRingHalf.wav"
-# x, yf1Abs = fourier_transform(fileName, 8372)
-# 
-# peaks = get_peaks(yf1Abs, 8372)
-# 
-# print(fileName)
-# for freq in peaks:
-#     print(f"{freq_to_note(freq)[0]}{freq_to_note(freq)[1]} {freq} {100 * yf1Abs[freq] / max(yf1Abs)}%")
-# 
-# plt.plot(x, yf1Abs)
-# plt.xlim([27, 4186])
-# plt.show()
+fileName = "DeepBellRingHalf.wav"
+x, yf1Abs = fourier_transform(fileName, 8372)
 
-# upperBound = 8372
-# peaksAmplitude = []
-# duration = 5
-# sampleRate, data = wavfile.read('TubularBellsRing.wav')
-# 
-# sampleNum = len(data)
-# 
-# data = np.transpose(data)
-# data1 = data[0]
-# data1 = np.int16((data1 / data1.max()) * 32767)
-# 
-# yf1 = fft(data1)
-# yf1Abs = np.abs(yf1)
-# 
-# xf = range(len(yf1))
-# 
-# peaks, properties = find_peaks(yf1Abs[:upperBound], 12500000, None, 100)
-# 
-# waveform = np.linspace(0, duration, 41000 * duration, endpoint = False)
-# 
-# for index in peaks:
-#     peaksAmplitude.append(yf1Abs[index])
-# 
-# for i in range(len(peaks)):
-#     _, sineWave = generate_sine_wave(peaks[i], 41000,  5)
-#     sineWave = sineWave * (peaksAmplitude[i] / max(peaksAmplitude))
-#     waveform += sineWave
-# 
-#     noteName, noteOctave = freq_to_note(peaks[i])
-#     print(f"{peaks[i]}Hz, {noteName}{noteOctave}, {peaksAmplitude[i] * 100 / max(peaksAmplitude)}%")
-# 
-# wavfile.write("output.wav", 41000, waveform)
-# 
-# plt.plot(xf, yf1Abs)
-# plt.xlim([0, upperBound])
-# plt.show()
+peaks = get_peaks(yf1Abs, 8372)
+
+print(fileName)
+for freq in peaks:
+    print(f"{freq_to_note(freq)[0]}{freq_to_note(freq)[1]} {freq} {100 * yf1Abs[freq] / max(yf1Abs)}%")
+
+plt.plot(x, yf1Abs)
+plt.xlim([27, 4186])
+plt.show()
+
+upperBound = 8372
+peaksAmplitude = []
+duration = 5
+sampleRate, data = wavfile.read('TubularBellsRing.wav')
+
+sampleNum = len(data)
+
+data = np.transpose(data)
+data1 = data[0]
+data1 = np.int16((data1 / data1.max()) * 32767)
+
+yf1 = fft(data1)
+yf1Abs = np.abs(yf1)
+
+xf = range(len(yf1))
+
+peaks, properties = find_peaks(yf1Abs[:upperBound], 12500000, None, 100)
+
+waveform = np.linspace(0, duration, 41000 * duration, endpoint = False)
+
+for index in peaks:
+    peaksAmplitude.append(yf1Abs[index])
+
+for i in range(len(peaks)):
+    _, sineWave = generate_sine_wave(peaks[i], 41000,  5)
+    sineWave = sineWave * (peaksAmplitude[i] / max(peaksAmplitude))
+    waveform += sineWave
+
+    noteName, noteOctave = freq_to_note(peaks[i])
+    print(f"{peaks[i]}Hz, {noteName}{noteOctave}, {peaksAmplitude[i] * 100 / max(peaksAmplitude)}%")
+
+wavfile.write("output.wav", 41000, waveform)
+
+plt.plot(xf, yf1Abs)
+plt.xlim([0, upperBound])
+plt.show()
